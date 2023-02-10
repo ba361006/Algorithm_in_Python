@@ -6,7 +6,11 @@ from typing import Optional
 
 
 class Node:
-    def __init__(self, value: int, next: Optional[Node] = None) -> None:
+    def __init__(
+        self,
+        value: int,
+        next: Optional[Node] = None,  # pylint: disable=redefined-builtin
+    ) -> None:
         self.value = value
         self.next = next
 
@@ -22,10 +26,10 @@ class LinkedListBase:
             ptr = ptr.next
 
     def generate_nodes(self) -> Node:
-        n3 = Node(3)
-        n2 = Node(2, n3)
-        n1 = Node(1, n2)
-        return n1
+        node_3 = Node(3)
+        node_2 = Node(2, node_3)
+        node_1 = Node(1, node_2)
+        return node_1
 
 
 def traverse_linked_list(linked_list: LinkedListBase) -> List[int]:

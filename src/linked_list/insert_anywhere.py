@@ -24,10 +24,10 @@ class LinkedList(LinkedListBase):
         # traverse and stop at just before the wanted node
         count = 1
         ptr = self.head
-        while ptr.next:
+        while ptr.next:  # type: ignore
             if count == index:
                 break
-            ptr = ptr.next
+            ptr = ptr.next  # type: ignore
             count += 1
 
         # the count should equal to index if the index is in the range
@@ -38,8 +38,8 @@ class LinkedList(LinkedListBase):
             )
 
         # append the node
-        node.next = ptr.next
-        ptr.next = node
+        node.next = ptr.next  # type: ignore
+        ptr.next = node  # type: ignore
 
 
 if __name__ == "__main__":
