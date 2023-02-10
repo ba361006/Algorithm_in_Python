@@ -1,15 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import annotations
 
-import abc
-from typing import Any
+from typing import List
 from typing import Optional
-
-
-class ISolution(abc.ABC):
-    @abc.abstractmethod
-    def start_task(self, *args: Any, **kwargs: Any) -> Any:
-        pass
 
 
 class Node:
@@ -33,3 +26,12 @@ class LinkedListBase:
         n2 = Node(2, n3)
         n1 = Node(1, n2)
         return n1
+
+
+def traverse_linked_list(linked_list: LinkedListBase) -> List[int]:
+    result = []
+    pointer = linked_list.head
+    while pointer:
+        result.append(pointer.value)
+        pointer = pointer.next
+    return result
