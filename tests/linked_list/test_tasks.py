@@ -12,6 +12,7 @@ from src.linked_list import insert_to_head
 from src.linked_list import insert_to_tail
 from src.linked_list import insert_anywhere
 from src.linked_list import remove
+from src.linked_list import double_linked_list
 
 
 def test_insert_to_head_success() -> None:
@@ -75,3 +76,13 @@ def test_remove_the_value_not_in_the_linked_list_should_fail() -> None:
     linked_list.head = linked_list.generate_nodes()
     with pytest.raises(ValueError):
         linked_list.remove(100)
+
+
+def test_double_linked_list_success() -> None:
+    expected_result = [1, 2, 3]
+    double_linked_list_ = double_linked_list.DoubleLinkedList()
+    double_linked_list_.add_node(Node(1))
+    double_linked_list_.add_node(Node(2))
+    double_linked_list_.add_node(Node(3))
+
+    assert traverse_linked_list(double_linked_list_) == expected_result
