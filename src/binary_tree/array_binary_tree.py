@@ -1,30 +1,40 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+from typing import Dict
 from typing import List
 
 sys.path.append(os.path.abspath("."))
 
 
-class ArrayBinaryTree:
-    def generate_tree(self, empty_tree: List[int], values: List[int]) -> None:
-        for node_value in values:
-            index = 0
+class ArrayBinaryTreeGenerator:
+    # I didn't handle the case of the same node values
+    def generate_tree(self, values: List[int]) -> List[int]:
+        if not values:
+            return []
 
-            # index would be the place to insert the node_value when get out the while loop
-            while empty_tree[index]:
-                if node_value < empty_tree[index]:
+        # {node_index: node_value}
+        nodes_mapper: Dict[int, int] = {}
+
+        for value in values:
+            index = 0
+            # get index of the node
+            while index in nodes_mapper:
+                if value < nodes_mapper[index]:
                     # go check left child node
                     index = 2 * index + 1
                 else:
                     # go check right child node
                     index = 2 * index + 2
+            nodes_mapper[index] = value
 
-            empty_tree[index] = node_value
-        self.tree = empty_tree
+        # take the maximum index as the length of array
+        binary_tree = [0] * (1 + max(nodes_mapper.keys()))
+        for node_index, node_value in nodes_mapper.items():
+            binary_tree[node_index] = node_value
+        return binary_tree
 
 
 if __name__ == "__main__":
-    binary_tree = ArrayBinaryTree()
-    binary_tree.generate_tree(empty_tree=[0] * 7, values=[10, 21, 5, 9, 13, 28])
-    print(binary_tree.tree)
+    binary_tree_generator = ArrayBinaryTreeGenerator()
+    print(binary_tree_generator.generate_tree(values=[10, 8, 13]))

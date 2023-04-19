@@ -8,14 +8,14 @@ import pytest
 
 sys.path.append(os.path.abspath("."))
 
-from src.binary_tree.array_binary_tree import ArrayBinaryTree
+from src.binary_tree.array_binary_tree import ArrayBinaryTreeGenerator
 from src.binary_tree.linked_list_binary_tree import Node, LinkedListBinaryTree
 
 
 @pytest.mark.parametrize(
-    "expected_result, empty_tree, values",
+    "expected_result, values",
     [
-        ([10, 5, 21, 0, 9, 13, 28], [0] * 7, [10, 21, 5, 9, 13, 28]),
+        ([10, 5, 21, 0, 9, 13, 28], [10, 21, 5, 9, 13, 28]),
         (
             [
                 53,
@@ -44,23 +44,16 @@ from src.binary_tree.linked_list_binary_tree import Node, LinkedListBinaryTree
                 0,
                 0,
                 56,
-                0,
-                0,
-                0,
-                0,
-                0,
             ],
-            [0] * 31,
             [53, 26, 60, 55, 40, 6, 35, 54, 58, 56],
         ),
     ],
 )
 def test_array_binary_tree_success_cases(
-    expected_result: List[int], empty_tree: List[int], values: List[int]
+    expected_result: List[int], values: List[int]
 ) -> None:
-    array_binary_tree = ArrayBinaryTree()
-    array_binary_tree.generate_tree(empty_tree=empty_tree, values=values)
-    assert expected_result == array_binary_tree.tree
+    array_binary_tree_generator = ArrayBinaryTreeGenerator()
+    assert expected_result == array_binary_tree_generator.generate_tree(values=values)
 
 
 def test_linked_list_binary_tree_success() -> None:
