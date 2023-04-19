@@ -9,7 +9,7 @@ import pytest
 sys.path.append(os.path.abspath("."))
 
 from src.binary_tree.array_binary_tree import ArrayBinaryTreeGenerator
-from src.binary_tree.linked_list_binary_tree import Node, LinkedListBinaryTree
+from src.binary_tree.linked_list_binary_tree import Node
 
 
 @pytest.mark.parametrize(
@@ -64,12 +64,12 @@ def test_linked_list_binary_tree_success() -> None:
         if node.right:
             inorder_travser(output, node.right)
 
-    linked_list_binary_tree = LinkedListBinaryTree()
+    linked_list_binary_tree = Node()
     node_values = [10, 21, 5, 9, 13, 28]
     for value in node_values:
-        linked_list_binary_tree.insert(Node(value))
+        linked_list_binary_tree.insert(value)
 
     result: List[Optional[int]] = []
     expected_result = [5, 9, 10, 13, 21, 28]
-    inorder_travser(result, linked_list_binary_tree.root)
+    inorder_travser(result, linked_list_binary_tree)
     assert expected_result == result
