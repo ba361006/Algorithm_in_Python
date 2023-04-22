@@ -62,6 +62,65 @@ class Node:
                     return self.right.search(value)
         return False
 
+    def delete(self, value: int) -> None:
+        # pylint: disable=too-many-branches
+        if self.value is None:
+            return
+
+        # get the previous node and target node(the node to be deleted)
+        direction = ""
+        previous_node = None
+        current_node = self
+        while True:
+            if value < current_node.value:  # type: ignore
+                if current_node.left:
+                    direction = "left"
+                    previous_node = current_node
+                    current_node = current_node.left
+                else:
+                    return
+            elif value > current_node.value:  # type: ignore
+                if current_node.right:
+                    direction = "right"
+                    previous_node = current_node
+                    current_node = current_node.right
+                else:
+                    return
+            else:
+                break
+
+        if current_node.left:
+            # target node has left subtree, we are going to replace the target node
+            # with the largest node from the subtree
+            subtree_previous_node = current_node
+            subtree_root_node = current_node.left
+            subtree_current_node = current_node.left
+
+            if subtree_root_node.right is None:
+                # root of the subtree node is the largest node
+                subtree_root_node.right = current_node.right
+                setattr(previous_node, direction, subtree_root_node)
+            else:
+                # find the largest node
+                while subtree_current_node.right:
+                    subtree_previous_node = subtree_current_node
+                    subtree_current_node = subtree_current_node.right
+
+                # handle the case that the largest node has a left node
+                subtree_previous_node.right = subtree_current_node.left
+
+                # replace the target node with the largest node from subtree
+                subtree_current_node.left = current_node.left
+                subtree_current_node.right = current_node.right
+                setattr(previous_node, direction, subtree_current_node)
+
+        elif current_node.right:
+            # has right subtree, replace current_node with the right child node
+            setattr(previous_node, direction, current_node.right)
+        else:
+            # leave node, set previous_node's left / right child node to None
+            setattr(previous_node, direction, None)
+
 
 if __name__ == "__main__":
     node_values = [10, 21, 5, 9, 13, 28]
@@ -87,4 +146,11 @@ if __name__ == "__main__":
     # # LRD: Left(L) -> Right(R) -> Root(D)
     # linked_list_binary_tree.postorder_print()
 
-    print(linked_list_binary_tree.search(-1))
+    # # search
+    # print(linked_list_binary_tree.search(-1))
+
+    # delete
+    linked_list_binary_tree.inorder_print()
+    linked_list_binary_tree.delete(10)
+    print("#" * 20)
+    linked_list_binary_tree.inorder_print()

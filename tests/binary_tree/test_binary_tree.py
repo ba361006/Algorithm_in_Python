@@ -2,6 +2,7 @@
 import io
 import os
 import sys
+from copy import deepcopy
 from typing import Callable
 from typing import List
 from typing import Optional
@@ -143,3 +144,23 @@ def test_linked_list_binary_search_success() -> None:
 
     for value, result in expected_result:
         assert result == linked_list_binary_tree.search(value)
+
+
+def test_linked_list_binary_delete_success() -> None:
+    linked_list_binary_tree = Node()
+    node_values = [53, 26, 60, 55, 40, 6, 35, 54, 58, 56]
+    ordered_node_values = sorted(node_values)
+    for value in node_values:
+        linked_list_binary_tree.insert(value)
+
+    for value in node_values:
+        # ignore the case of removing the root node
+        if value == node_values[0]:
+            continue
+
+        root_node = deepcopy(linked_list_binary_tree)
+        root_node.delete(value)
+        inorder_result = get_text_from_stdout(root_node.inorder_print)
+        expected_result = ordered_node_values.copy()
+        expected_result.remove(value)
+        assert inorder_result == expected_result
