@@ -14,7 +14,7 @@ from src.binary_tree.array_binary_tree import ArrayBinaryTreeGenerator
 from src.binary_tree.linked_list_binary_tree import Node
 
 
-def get_text_from_stdout(printing_function: Callable) -> List[int]:
+def get_text_from_stdout(printing_function: Callable[[], None]) -> List[int]:
     # Save the current stdout stream
     original_stdout = sys.stdout
 
@@ -117,7 +117,7 @@ def test_linked_list_binary_preorder_print_success() -> None:
     assert expected_result == preorder_result
 
 
-def test_linked_list_binary_inorder_print_success() -> None:
+def test_linked_list_binary_postorder_print_success() -> None:
     linked_list_binary_tree = Node()
     node_values = [53, 26, 60, 55, 40, 6, 35, 54, 58, 56]
     expected_result = [6, 35, 40, 26, 54, 56, 58, 55, 60, 53]
@@ -125,3 +125,21 @@ def test_linked_list_binary_inorder_print_success() -> None:
         linked_list_binary_tree.insert(value)
     postorder_result = get_text_from_stdout(linked_list_binary_tree.postorder_print)
     assert expected_result == postorder_result
+
+
+def test_linked_list_binary_search_success() -> None:
+    linked_list_binary_tree = Node()
+    node_values = [53, 26, 60, 55, 40, 6, 35, 54, 58, 56]
+    expected_result = [
+        [6, True],
+        [10, False],
+        [15, False],
+        [0, False],
+        [-1, False],
+        [35, True],
+    ]
+    for value in node_values:
+        linked_list_binary_tree.insert(value)
+
+    for value, result in expected_result:
+        assert result == linked_list_binary_tree.search(value)
