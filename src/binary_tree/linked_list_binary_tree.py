@@ -118,7 +118,7 @@ class Node:
             # has right subtree, replace current_node with the right child node
             setattr(previous_node, direction, current_node.right)
         else:
-            # leave node, set previous_node's left / right child node to None
+            # leaf node, set previous_node's left / right child node to None
             setattr(previous_node, direction, None)
 
 
