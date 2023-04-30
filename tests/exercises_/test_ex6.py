@@ -10,9 +10,9 @@ from typing import Callable
 from typing import List
 from tests.resource import BinaryTreeDataClass
 from src.exercises.ex6 import Node
-from src.exercises.ex6 import Exercise6_1
-from src.exercises.ex6 import Exercise6_2
-from src.exercises.ex6 import Exercise6_3
+from src.exercises.ex6 import Exercise61
+from src.exercises.ex6 import Exercise62
+from src.exercises.ex6 import Exercise63
 
 
 def test_ex6_data_structure_success(
@@ -25,7 +25,7 @@ def test_ex6_data_structure_success(
             root.insert(value)
 
         assert sample.preorder_result == get_text_from_stdout(
-            lambda: root.preorder_print(0)
+            lambda: root.preorder_print(0)  # type: ignore # pylint: disable=cell-var-from-loop
         )
         assert sample.postorder_result == get_text_from_stdout(root.postorder_print)
 
@@ -43,7 +43,7 @@ def test_ex6_data_structure_success(
 def test_ex6_1_solution_success(
     get_text_from_stdout: Callable[[Callable[[], None]], List[int]],
 ) -> None:
-    ex6_1 = Exercise6_1()
+    ex6_1 = Exercise61()
     preorder_result = get_text_from_stdout(ex6_1.solution)
 
     # ignore annoying printing
@@ -61,7 +61,7 @@ def test_ex6_1_solution_success(
 def test_ex6_2_solution_success(
     get_text_from_stdout: Callable[[Callable[[], None]], List[int]],
 ) -> None:
-    ex6_2 = Exercise6_2()
+    ex6_2 = Exercise62()
 
     # ignore annoying printing
     original_stdout = sys.stdout
@@ -71,7 +71,9 @@ def test_ex6_2_solution_success(
     sys.stdout = original_stdout
 
     expected_result = [1, 4, 3, 9, 5, 17, 13, 32, 28, 21, 10]
-    postorder_result = get_text_from_stdout(lambda: ex6_2.solution())
+    postorder_result = get_text_from_stdout(
+        lambda: ex6_2.solution()  # type:ignore # pylint: disable=unnecessary-lambda
+    )
     assert expected_result == postorder_result
     assert depth == 4
 
@@ -79,7 +81,7 @@ def test_ex6_2_solution_success(
 def test_ex6_3_solution_success(
     get_text_from_stdout: Callable[[Callable[[], None]], List[int]],
 ) -> None:
-    ex6_3 = Exercise6_3()
+    ex6_3 = Exercise63()
     deleted_result = get_text_from_stdout(ex6_3.solution)
     expected_result = [1, 4, 3, 9, 5, 17, 32, 28, 21, 13]
     assert expected_result == deleted_result

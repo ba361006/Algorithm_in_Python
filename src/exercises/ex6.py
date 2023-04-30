@@ -12,8 +12,8 @@ from typing import List, Optional
 class Node:
     def __init__(self, value: Optional[int] = None) -> None:
         self.value = value
-        self.left = None
-        self.right = None
+        self.left: Optional[Node] = None
+        self.right: Optional[Node] = None
 
     def insert(self, value: int) -> None:
         if self.value is None:
@@ -61,8 +61,9 @@ class Node:
         return maximum_depth
 
     def delete(self, value: int) -> Node:
+        # pylint: disable=too-many-branches
         if self.value is None:
-            return
+            return self
 
         direction = ""
         previous_node = self
@@ -70,14 +71,14 @@ class Node:
 
         # find the target node(the node to be deleted)
         while value != current_node.value:
-            if value < current_node.value:
+            if value < current_node.value:  # type: ignore
                 if current_node.left:
                     previous_node = current_node
                     current_node = current_node.left
                     direction = "left"
                 else:
                     return self
-            elif value > current_node.value:
+            elif value > current_node.value:  # type: ignore
                 if current_node.right:
                     previous_node = current_node
                     current_node = current_node.right
@@ -99,7 +100,7 @@ class Node:
                     minimum_node.right = current_node.right
                 new_root = minimum_node
             elif current_node.left:
-                new_root = self.left
+                new_root = self.left  # type: ignore
             else:
                 # should never go here
                 raise ValueError("Try to remove root")
@@ -143,7 +144,8 @@ class Node:
         return current_node
 
 
-class Exercise6_1:
+class Exercise61:
+    # pylint: disable=dangerous-default-value
     def __init__(
         self, values: List[int] = [10, 5, 21, 9, 13, 28, 3, 4, 1, 17, 32]
     ) -> None:
@@ -159,7 +161,8 @@ class Exercise6_1:
         return amount_of_leaf_node
 
 
-class Exercise6_2:
+class Exercise62:
+    # pylint: disable=dangerous-default-value
     def __init__(
         self, values: List[int] = [10, 5, 21, 9, 13, 28, 3, 4, 1, 17, 32]
     ) -> None:
@@ -175,7 +178,8 @@ class Exercise6_2:
         return root.get_depth()
 
 
-class Exercise6_3:
+class Exercise63:
+    # pylint: disable=dangerous-default-value
     def __init__(
         self, values: List[int] = [10, 5, 21, 9, 13, 28, 3, 4, 1, 17, 32]
     ) -> None:
@@ -191,41 +195,14 @@ class Exercise6_3:
         root.postorder_print()
 
 
-import os
-import sys
-import io
-from typing import List
-from typing import Callable
-
-
-def get_text_from_stdout(printing_function: Callable[[], None]) -> List[int]:
-    # Save the current stdout stream
-    original_stdout = sys.stdout
-
-    # Create a new stream to capture the output
-    output = io.StringIO()
-    sys.stdout = output
-
-    # Call the function that prints some text
-    printing_function()
-
-    # Reset the stdout stream
-    sys.stdout = original_stdout
-
-    # Get the printed text as a string
-    raw_text = output.getvalue()
-
-    return list(map(int, raw_text.split()))
-
-
 if __name__ == "__main__":
-    Ex61 = Exercise6_1()
+    Ex61 = Exercise61()
     print(f"The amount of leaf node: {Ex61.solution()}")
     print("#" * 20)
 
-    Ex62 = Exercise6_2()
+    Ex62 = Exercise62()
     print(f"The depth of binary tree: {Ex62.solution()}")
     print("#" * 20)
 
-    Ex63 = Exercise6_3()
+    Ex63 = Exercise63()
     Ex63.solution()
