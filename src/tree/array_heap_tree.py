@@ -111,6 +111,24 @@ class ArrayHeapTree:
         self.base = tree
         return (poped_value, self.max_heap_push(value))
 
+    def get_n_min(self, value: int) -> List[int]:
+        ori_base = self.base.copy()
+        result = []
+        for _ in range(value):
+            poped_value, _ = self.min_heap_pop()
+            result.append(poped_value)
+        self.base = ori_base
+        return result
+
+    def get_n_max(self, value: int) -> List[int]:
+        ori_base = self.base.copy()
+        result = []
+        for _ in range(value):
+            poped_value, _ = self.max_heap_pop()
+            result.append(poped_value)
+        self.base = ori_base
+        return result
+
     def __get_subnodes_indices(self, tree: List[int]) -> List[int]:
         result = []
         index = 0
@@ -136,4 +154,10 @@ if __name__ == "__main__":
     # print(array_heap_tree.min_heap_pop())
     # print(array_heap_tree.max_heap_pop())
     # print(array_heap_tree.min_push_pop(11))
-    print(array_heap_tree.max_push_pop(11))
+    # print(array_heap_tree.max_push_pop(11))
+
+    # # get n min / max
+    # print(array_heap_tree.get_n_min(3))
+    # print(array_heap_tree.base)
+    # print(array_heap_tree.get_n_max(3))
+    # print(array_heap_tree.base)

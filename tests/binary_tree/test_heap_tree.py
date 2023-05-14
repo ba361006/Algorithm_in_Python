@@ -150,3 +150,27 @@ def test_array_heap_tree_max_push_pop_success_case(
 ) -> None:
     array_heap_tree = ArrayHeapTree(values)
     assert expected_result == array_heap_tree.max_push_pop(value)
+
+
+@pytest.mark.parametrize(
+    "values, number, min_expected_result, max_expected_result",
+    (
+        [
+            [10, 21, 5, 9, 13, 28, 3],
+            3,
+            [3, 5, 9],
+            [28, 21, 13],
+        ],
+        [[53, 26, 60, 55, 40, 6, 35, 54, 58, 56], 3, [6, 26, 35], [60, 58, 56]],
+    ),
+)
+def test_array_heap_tree_get_n_nodes_success_case(
+    values: List[int],
+    number: int,
+    min_expected_result: List[int],
+    max_expected_result: List[int],
+) -> None:
+    array_heap_tree = ArrayHeapTree(values)
+    assert min_expected_result == array_heap_tree.get_n_min(number)
+    assert max_expected_result == array_heap_tree.get_n_max(number)
+    assert values == array_heap_tree.base
