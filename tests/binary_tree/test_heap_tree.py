@@ -24,9 +24,53 @@ from src.tree.array_heap_tree import ArrayHeapTree
         ],
     ),
 )
-def test_array_heap_tree_success_case(
+def test_array_heap_tree_build_success_case(
     values: List[int], min_expected_result: List[int], max_expected_result: List[int]
 ) -> None:
     array_heap_tree = ArrayHeapTree(values)
     assert min_expected_result == array_heap_tree.build_min_heapify()
     assert max_expected_result == array_heap_tree.build_max_heapify()
+
+
+@pytest.mark.parametrize(
+    "values, value, expected_result",
+    (
+        [
+            [10, 21, 5, 9, 13, 28, 3],
+            25,
+            [3, 9, 5, 21, 13, 28, 10, 25],
+        ],
+        [
+            [53, 26, 60, 55, 40, 6, 35, 54, 58, 56],
+            25,
+            [6, 25, 35, 54, 26, 60, 53, 55, 58, 56, 40],
+        ],
+    ),
+)
+def test_array_heap_tree_min_heap_push_success_case(
+    values: List[int], value: int, expected_result: List[int]
+) -> None:
+    array_heap_tree = ArrayHeapTree(values)
+    assert expected_result == array_heap_tree.min_heap_push(value)
+
+
+@pytest.mark.parametrize(
+    "values, value, expected_result",
+    (
+        [
+            [10, 21, 5, 9, 13, 28, 3],
+            25,
+            [28, 25, 10, 21, 13, 5, 3, 9],
+        ],
+        [
+            [53, 26, 60, 55, 40, 6, 35, 54, 58, 56],
+            25,
+            [60, 58, 53, 55, 56, 6, 35, 54, 26, 40, 25],
+        ],
+    ),
+)
+def test_array_heap_tree_max_heap_push_success_case(
+    values: List[int], value: int, expected_result: List[int]
+) -> None:
+    array_heap_tree = ArrayHeapTree(values)
+    assert expected_result == array_heap_tree.max_heap_push(value)

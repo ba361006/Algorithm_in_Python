@@ -80,6 +80,14 @@ class ArrayHeapTree:
                         subnodes_indices.append(2 * node_index + 2)
         return tree
 
+    def min_heap_push(self, value: int) -> List[int]:
+        self.base.append(value)
+        return self.build_min_heapify()
+
+    def max_heap_push(self, value: int) -> List[int]:
+        self.base.append(value)
+        return self.build_max_heapify()
+
     def __get_subnodes_indices(self, tree: List[int]) -> List[int]:
         result = []
         index = 0
@@ -92,7 +100,14 @@ class ArrayHeapTree:
 if __name__ == "__main__":
     example = [10, 21, 5, 9, 13, 28, 3]
     array_heap_tree = ArrayHeapTree(example)
-    min_heap_tree = array_heap_tree.build_min_heapify()
-    max_heap_tree = array_heap_tree.build_max_heapify()
-    print("min_heap_tree: ", min_heap_tree)
-    print("max_heap_tree: ", max_heap_tree)
+    print(array_heap_tree.base)
+
+    # # build heap tree
+    # min_heap_tree = array_heap_tree.build_min_heapify()
+    # max_heap_tree = array_heap_tree.build_max_heapify()
+    # print("min_heap_tree: ", min_heap_tree)
+    # print("max_heap_tree: ", max_heap_tree)
+
+    # push and pop
+    # print(array_heap_tree.min_heap_push(25))
+    # print(array_heap_tree.max_heap_push(27))
