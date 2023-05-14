@@ -74,3 +74,79 @@ def test_array_heap_tree_max_heap_push_success_case(
 ) -> None:
     array_heap_tree = ArrayHeapTree(values)
     assert expected_result == array_heap_tree.max_heap_push(value)
+
+
+@pytest.mark.parametrize(
+    "values, expected_result",
+    (
+        [
+            [10, 21, 5, 9, 13, 28, 3],
+            (3, [5, 9, 10, 21, 13, 28]),
+        ],
+        [
+            [53, 26, 60, 55, 40, 6, 35, 54, 58, 56],
+            (6, [26, 40, 35, 54, 56, 60, 53, 55, 58]),
+        ],
+    ),
+)
+def test_array_heap_tree_min_heap_pop_success_case(
+    values: List[int], expected_result: List[int]
+) -> None:
+    array_heap_tree = ArrayHeapTree(values)
+    assert expected_result == array_heap_tree.min_heap_pop()
+
+
+@pytest.mark.parametrize(
+    "values, expected_result",
+    (
+        [
+            [10, 21, 5, 9, 13, 28, 3],
+            (28, [21, 13, 10, 9, 3, 5]),
+        ],
+        [
+            [53, 26, 60, 55, 40, 6, 35, 54, 58, 56],
+            (60, [58, 56, 53, 55, 40, 6, 35, 54, 26]),
+        ],
+    ),
+)
+def test_array_heap_tree_max_heap_pop_success_case(
+    values: List[int], expected_result: List[int]
+) -> None:
+    array_heap_tree = ArrayHeapTree(values)
+    assert expected_result == array_heap_tree.max_heap_pop()
+
+
+@pytest.mark.parametrize(
+    "values, value, expected_result",
+    (
+        [[10, 21, 5, 9, 13, 28, 3], 11, (3, [5, 9, 10, 21, 13, 28, 11])],
+        [
+            [53, 26, 60, 55, 40, 6, 35, 54, 58, 56],
+            11,
+            (6, [11, 26, 35, 54, 40, 60, 53, 55, 58, 56]),
+        ],
+    ),
+)
+def test_array_heap_tree_min_push_pop_success_case(
+    values: List[int], value: int, expected_result: List[int]
+) -> None:
+    array_heap_tree = ArrayHeapTree(values)
+    assert expected_result == array_heap_tree.min_push_pop(value)
+
+
+@pytest.mark.parametrize(
+    "values, value, expected_result",
+    (
+        [[10, 21, 5, 9, 13, 28, 3], 11, (28, [21, 13, 11, 9, 3, 5, 10])],
+        [
+            [53, 26, 60, 55, 40, 6, 35, 54, 58, 56],
+            11,
+            (60, [58, 56, 53, 55, 40, 6, 35, 54, 26, 11]),
+        ],
+    ),
+)
+def test_array_heap_tree_max_push_pop_success_case(
+    values: List[int], value: int, expected_result: List[int]
+) -> None:
+    array_heap_tree = ArrayHeapTree(values)
+    assert expected_result == array_heap_tree.max_push_pop(value)

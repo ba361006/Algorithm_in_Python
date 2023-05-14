@@ -2,6 +2,7 @@
 import os
 import sys
 from typing import List
+from typing import Tuple
 
 sys.path.append(os.path.abspath("."))
 
@@ -88,6 +89,28 @@ class ArrayHeapTree:
         self.base.append(value)
         return self.build_max_heapify()
 
+    def min_heap_pop(self) -> Tuple[int, List[int]]:
+        tree = self.build_min_heapify()
+        poped_value = tree.pop(0)
+        self.base = [tree.pop()] + tree
+        return (poped_value, self.build_min_heapify())
+
+    def max_heap_pop(self) -> Tuple[int, List[int]]:
+        tree = self.build_max_heapify()
+        poped_value = tree.pop(0)
+        self.base = [tree.pop()] + tree
+        return (poped_value, self.build_max_heapify())
+
+    def min_push_pop(self, value: int) -> Tuple[int, List[int]]:
+        poped_value, tree = self.min_heap_pop()
+        self.base = tree
+        return (poped_value, self.min_heap_push(value))
+
+    def max_push_pop(self, value: int) -> Tuple[int, List[int]]:
+        poped_value, tree = self.max_heap_pop()
+        self.base = tree
+        return (poped_value, self.max_heap_push(value))
+
     def __get_subnodes_indices(self, tree: List[int]) -> List[int]:
         result = []
         index = 0
@@ -100,7 +123,6 @@ class ArrayHeapTree:
 if __name__ == "__main__":
     example = [10, 21, 5, 9, 13, 28, 3]
     array_heap_tree = ArrayHeapTree(example)
-    print(array_heap_tree.base)
 
     # # build heap tree
     # min_heap_tree = array_heap_tree.build_min_heapify()
@@ -111,3 +133,7 @@ if __name__ == "__main__":
     # push and pop
     # print(array_heap_tree.min_heap_push(25))
     # print(array_heap_tree.max_heap_push(27))
+    # print(array_heap_tree.min_heap_pop())
+    # print(array_heap_tree.max_heap_pop())
+    # print(array_heap_tree.min_push_pop(11))
+    print(array_heap_tree.max_push_pop(11))
