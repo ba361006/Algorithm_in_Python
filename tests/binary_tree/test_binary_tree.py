@@ -10,8 +10,8 @@ sys.path.append(os.path.abspath("."))
 
 from tests.resource import BinaryTreeDataClass
 
-from src.binary_tree.array_binary_tree import ArrayBinaryTreeGenerator
-from src.binary_tree.linked_list_binary_tree import Node
+from src.tree.array_binary_tree import ArrayBinaryTreeGenerator
+from src.tree.linked_list_binary_tree import Node
 
 
 def test_array_binary_tree_success_cases(
