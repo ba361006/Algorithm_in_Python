@@ -13,7 +13,7 @@ class ArrayHeapTree:
     def build_min_heapify(self) -> List[int]:
         if not self.base:
             return self.base
-        tree = self.base
+        tree = self.base.copy()
         subnodes_indices = self.__get_subnodes_indices(tree)
         subnodes_table = subnodes_indices.copy()
 
@@ -34,21 +34,21 @@ class ArrayHeapTree:
                     )
                     # subnodes_table indicates that the node has subnode(s)
                     # even it's swapped, the node at this position must still have subnode(s)
-                    if (2 * node_index + 1) in subnodes_table:
+                    if 2 * node_index + 1 in subnodes_table:
                         subnodes_indices.append(2 * node_index + 1)
                 else:
                     tree[node_index], tree[2 * node_index + 2] = (
                         tree[2 * node_index + 2],
                         tree[node_index],
                     )
-                    if (2 * node_index + 2) in subnodes_table:
+                    if 2 * node_index + 2 in subnodes_table:
                         subnodes_indices.append(2 * node_index + 2)
         return tree
 
     def build_max_heapify(self) -> List[int]:
         if not self.base:
             return self.base
-        tree = self.base
+        tree = self.base.copy()
         subnodes_indices = self.__get_subnodes_indices(tree)
         subnodes_table = subnodes_indices.copy()
 
@@ -69,14 +69,14 @@ class ArrayHeapTree:
                     )
                     # subnodes_table indicates that the node has subnode(s)
                     # even it's swapped, the node at this position must still have subnode(s)
-                    if (2 * node_index + 1) in subnodes_table:
+                    if 2 * node_index + 1 in subnodes_table:
                         subnodes_indices.append(2 * node_index + 1)
                 else:
                     tree[node_index], tree[2 * node_index + 2] = (
                         tree[2 * node_index + 2],
                         tree[node_index],
                     )
-                    if (2 * node_index + 2) in subnodes_table:
+                    if 2 * node_index + 2 in subnodes_table:
                         subnodes_indices.append(2 * node_index + 2)
         return tree
 
@@ -90,7 +90,9 @@ class ArrayHeapTree:
 
 
 if __name__ == "__main__":
-    values = [10, 21, 5, 9, 13, 28, 3]
-    array_heap_tree = ArrayHeapTree(values)
+    example = [10, 21, 5, 9, 13, 28, 3]
+    array_heap_tree = ArrayHeapTree(example)
     min_heap_tree = array_heap_tree.build_min_heapify()
     max_heap_tree = array_heap_tree.build_max_heapify()
+    print("min_heap_tree: ", min_heap_tree)
+    print("max_heap_tree: ", max_heap_tree)
