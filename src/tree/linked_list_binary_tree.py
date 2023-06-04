@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import sys
+from typing import List
 from typing import Optional
 
 sys.path.append(os.path.abspath("."))
@@ -122,6 +123,20 @@ class Node:
             setattr(previous_node, direction, None)
 
 
+def return_inorder_value(node: Optional[Node]) -> List[int]:
+    # for a leaf node, it would be:
+    # [] + [node.value] + []
+
+    # for a node with left, it would be:
+    # ([]+[left_child.value]+[]) + [node.value] + []
+
+    # for a node with both left and right,  it would be:
+    # ([]+[left_child.value]+[]) + [node.value] + ([]+[right_child.value]+[])
+    if node is None:
+        return []
+    return return_inorder_value(node.left) + [node.value] + return_inorder_value(node.right)  # type: ignore
+
+
 if __name__ == "__main__":
     node_values = [10, 21, 5, 9, 13, 28]
     linked_list_binary_tree = Node()
@@ -149,8 +164,11 @@ if __name__ == "__main__":
     # # search
     # print(linked_list_binary_tree.search(-1))
 
-    # delete
-    linked_list_binary_tree.inorder_print()
-    linked_list_binary_tree.delete(10)
-    print("#" * 20)
-    linked_list_binary_tree.inorder_print()
+    # # delete
+    # linked_list_binary_tree.inorder_print()
+    # linked_list_binary_tree.delete(10)
+    # print("#" * 20)
+    # linked_list_binary_tree.inorder_print()
+
+    # return inorder list value
+    print(return_inorder_value(linked_list_binary_tree))
