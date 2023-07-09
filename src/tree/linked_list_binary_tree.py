@@ -8,7 +8,7 @@ from typing import Optional
 
 sys.path.append(os.path.abspath("."))
 
-# pylint: disable=line-too-long
+
 class Node:
     def __init__(self, value: Optional[int] = None) -> None:
         self.value = value
@@ -123,7 +123,7 @@ class Node:
             setattr(previous_node, direction, None)
 
 
-def return_inorder_value(node: Optional[Node]) -> List[int]:
+def return_inorder_value(node: Optional[Node]) -> List[Optional[int]]:
     # for a leaf node, it would be:
     # [] + [node.value] + []
 
@@ -134,7 +134,11 @@ def return_inorder_value(node: Optional[Node]) -> List[int]:
     # ([]+[left_child.value]+[]) + [node.value] + ([]+[right_child.value]+[])
     if node is None:
         return []
-    return return_inorder_value(node.left) + [node.value] + return_inorder_value(node.right)  # type: ignore
+    return (
+        return_inorder_value(node.left)
+        + [node.value]
+        + return_inorder_value(node.right)
+    )
 
 
 if __name__ == "__main__":
