@@ -8,7 +8,7 @@ from typing import Optional
 
 sys.path.append(os.path.abspath("."))
 
-
+# pylint: disable=line-too-long
 class Node:
     def __init__(self, value: Optional[int] = None) -> None:
         self.value = value
